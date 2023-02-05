@@ -39,7 +39,7 @@ app.post('/api/add-notes', (req, res) => {
 
     client.connect(async err => {
         const collection = client.db('class-management').collection('notes');
-        const title = filename.split('.')[0] + ' - Notes';
+        const title = filename.split('.')[0] + ' - Text';
         await collection.insertOne({ title: title, link: '/notes-data/' + filename });
         res.redirect('/admin?msg=Notes Successfully Uploaded!');
     });
