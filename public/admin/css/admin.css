@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Stylish&display=swap');
+
+.admin-controls {
+    position: relative;
+    width: 90%;
+    left: 5%;
+    top: 50px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.admin-title {
+    font-family: Alegreya;
+    font-size: 30px;
+    text-decoration: underline;
+}
+.admin-input {
+    width: 60%;
+    height: 50px;
+    border-radius: 20px;
+    text-align: center;
+    font-family: Stylish;
+    font-size: 18px;
+    background: #212121;
+    color: white;
+}
+.top-spacing {
+    margin-top: 30px;
+}
+.admin-file-upload {
+    display: none;
+}
+.upload-prompt {
+    font-family: Stylish;
+    font-size: 25px;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.upload {
+    height: 30px;
+    width: 10%;
+    border-radius: 5px;
+    background: #0A0A0A;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+}
+.upload:hover {
+    opacity: 70%;
+}
+
+@media all and (max-width: 800px) {
+    .admin-controls {
+        top: 40px;
+    }
+    .admin-input {
+        width: 70%;
+        height: 50px;
+        border-radius: 20px;
+        font-size: 18px;
+    }
+    .top-spacing {
+        margin-top: 25px;
+    }
+    .upload {
+        height: 30px;
+        width: 15%;
+        font-size: 10px;
+    }
+}
+@media all and (max-width: 500px) {
+    .admin-controls {
+        top: 30px;
+    }
+    .admin-title {
+        font-size: 25px;
+    }
+    .admin-input {
+        width: 70%;
+        height: 40px;
+        border-radius: 20px;
+        font-size: 15px;
+    }
+    .top-spacing {
+        margin-top: 25px;
+    }
+    .upload-prompt {
+        font-size: 20px;
+    }
+}
+@media all and (max-width: 400px) {
+    .admin-controls {
+        top: 20px;
+    }
+    .admin-title {
+        font-size: 20px;
+    }
+    .admin-input {
+        width: 70%;
+        height: 30px;
+        border-radius: 20px;
+        font-size: 13px;
+    }
+    .top-spacing {
+        margin-top: 25px;
+    }
+    .upload-prompt {
+        font-size: 16px;
+    }
+    .upload {
+        height: 30px;
+        width: 20%;
+        font-size: 10px;
+    }
+}
