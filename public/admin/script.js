@@ -6,10 +6,10 @@ if(window.location.href.includes('?')) {
 
 //Clicking Configuration with text for notes
 
-const fileUploadNotes = document.getElementById('file-upload-notes');
-const uploadPromptNotes = document.getElementById('upload-prompt-notes');
-uploadPromptNotes.addEventListener('click', e => {
-    fileUploadNotes.click();
+const fileUploadText = document.getElementById('file-upload-text');
+const uploadPromptText = document.getElementById('upload-prompt-text');
+uploadPromptText.addEventListener('click', e => {
+    fileUploadText.click();
 })
 
 //Clicking Configuration with text for audio

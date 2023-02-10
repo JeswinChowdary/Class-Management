@@ -12,11 +12,11 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 const port = process.env.PORT || 3000;
 
-app.get('/api/get-notes', (req, res) => {
+app.get('/api/get-text', (req, res) => {
     client.connect(async err => {
-        const collection = client.db('class-management').collection('notes');
-        const notesDataArr = await collection.find().toArray();
-        return await res.send({ notesDataArr: notesDataArr })
+        const collection = client.db('class-management').collection('text');
+        const textDataArr = await collection.find().toArray();
+        return await res.send({ textDataArr: textDataArr })
     })
 })
 app.get('/api/get-audio', (req, res) => {
@@ -26,7 +26,7 @@ app.get('/api/get-audio', (req, res) => {
         return await res.send({ audioDataArr: audioDataArr })
     })
 })
-app.post('/api/add-notes', (req, res) => {
+app.post('/api/add-text', (req, res) => {
     const file = req.files.file;
     const filename = file.name;
     const adminPass = req.body.adminpass;
@@ -35,13 +35,13 @@ app.post('/api/add-notes', (req, res) => {
         return res.redirect('/admin?msg=The admin password you have entered is incorrect!!!');
     }
 
-    file.mv('./public/notes-data/' + filename);
+    file.mv('./public/text-data/' + filename);
 
     client.connect(async err => {
-        const collection = client.db('class-management').collection('notes');
+        const collection = client.db('class-management').collection('text');
         const title = filename.split('.')[0] + ' - Text';
-        await collection.insertOne({ title: title, link: '/notes-data/' + filename });
-        res.redirect('/admin?msg=Notes Successfully Uploaded!');
+        await collection.insertOne({ title: title, link: '/text-data/' + filename });
+        res.redirect('/admin?msg=Text Successfully Uploaded!');
     });
 })
 app.post('/api/add-audio', (req, res) => {
