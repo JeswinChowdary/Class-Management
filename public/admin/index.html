@@ -13,30 +13,29 @@
     
     <nav class="navbar">
 
-        <span class="logo">DPS 8G</span>
+        <span class="logo">DPS 9I</span>
     
 
         <div class="links">
-            <a class="nav-link" href="/">Textbooks</a>
-            <a class="nav-link" href="/audio-read">AudioRead</a>
+            <a class="nav-link" href="/">Notes</a>
+            <a class="nav-link" href="/reminders">Reminders</a>
             <a class="nav-link" href="/admin">Admin</a>
             <a class="nav-link" href="/donate">Donate</a>
         </div>
     </nav>
 
-    <form class="admin-controls" method="POST" enctype="multipart/form-data" action="/api/add-text">
-        <span class="admin-title">Add Text</span>
+    <form class="admin-controls" method="POST" enctype="multipart/form-data" action="/api/add-note">
+        <span class="admin-title">Add Notes</span>
         <input type="password" id="admin-password-notes" class="admin-input top-spacing" placeholder="Admin Password" name="adminpass">
         <input type="file" name="file" class="admin-file-upload" id="file-upload-text">
         <span class="upload-prompt top-spacing" id="upload-prompt-text">Click here to upload file</span>
         <button type="submit" class="upload top-spacing">Upload</button>
     </form> 
 
-    <form class="admin-controls" method="POST" enctype="multipart/form-data" action="/api/add-audio">
-        <span class="admin-title">Add AudioReader</span>
+    <form class="admin-controls" method="GET" enctype="application/x-www-form-urlencoded" action="/api/add-reminders">
+        <span class="admin-title">Add Reminder</span>
         <input type="password" id="admin-password-audio" class="admin-input top-spacing" placeholder="Admin Password" name="adminpass">
-        <input type="file" name="file" class="admin-file-upload" id="file-upload-audio">
-        <span class="upload-prompt top-spacing" id="upload-prompt-audio">Click here to upload file</span>
+        <input class="admin-input top-spacing" placeholder="Content - Word Limit: 50" name="content">
         <button type="submit" class="upload top-spacing">Upload</button>
     </form> 
 

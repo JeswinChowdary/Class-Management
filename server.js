@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const upload = require('express-fileupload');
-const adminPassword = 'fearlessadminmk1232009';
+const adminPassword = 'jeswinchowdary123';
 
 app.use(upload());
 app.use(express.json());
@@ -10,23 +10,16 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://Jeswin:Jeswin2009@cluster0.5nwhj.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.get('/api/get-text', (req, res) => {
+app.get('/api/get-notes', (req, res) => {
     client.connect(async err => {
-        const collection = client.db('class-management').collection('text');
-        const textDataArr = await collection.find().toArray();
-        return await res.send({ textDataArr: textDataArr })
+        const collection = client.db('class-management').collection('notes');
+        const notesDataArr = await collection.find().toArray();
+        return await res.send({ notesDataArr: notesDataArr })
     })
 })
-app.get('/api/get-audio', (req, res) => {
-    client.connect(async err => {
-        const collection = client.db('class-management').collection('audio');
-        const audioDataArr = await collection.find().toArray();
-        return await res.send({ audioDataArr: audioDataArr })
-    })
-})
-app.post('/api/add-text', (req, res) => {
+app.post('/api/add-note', (req, res) => {
     const file = req.files.file;
     const filename = file.name;
     const adminPass = req.body.adminpass;
@@ -35,34 +28,61 @@ app.post('/api/add-text', (req, res) => {
         return res.redirect('/admin?msg=The admin password you have entered is incorrect!!!');
     }
 
-    file.mv('./public/text-data/' + filename);
+    file.mv('./public/notes-data/' + filename);
 
     client.connect(async err => {
-        const collection = client.db('class-management').collection('text');
-        const title = filename.split('.')[0] + ' - Text';
-        await collection.insertOne({ title: title, link: '/text-data/' + filename });
-        res.redirect('/admin?msg=Text Successfully Uploaded!');
+        const collection = client.db('class-management').collection('notes');
+        const title = filename.split('.')[0] + ' - Notes';
+        await collection.insertOne({ title: title, link: '/notes-data/' + filename });
+        res.redirect('/admin?msg=Notes Successfully Uploaded!');
+
     });
 })
-app.post('/api/add-audio', (req, res) => {
-    const file = req.files.file;
-    const filename = file.name;
-    const adminPass = req.body.adminpass;
+
+
+
+
+
+
+// Reminders
+
+
+
+
+
+
+
+app.get('/api/add-reminders', async (req, res) => {
+    const content = req.query.content;
+    const adminPass = req.query.adminpass;
 
     if(adminPass !== adminPassword) {
-        return res.redirect('/admin?msg=The admin password you have entered is incorrect!!!');
+        return res.redirect('/admin?msg=The admin password you have entered is incorrect.');
     }
 
-    file.mv('./public/audio-data/' + filename);
+    try { 
+        const collection = await client.db('class-management').collection('reminders');
 
-    client.connect(async err => {
-        const collection = client.db('class-management').collection('audio');
-        const title = filename.split('.')[0] + ' - Audio';
-        await collection.insertOne({ title: title, link: '/audio-data/' + filename });
-        res.redirect('/admin?msg=Audio Successfully Uploaded!');
-    });
+        await collection.insertOne({
+            content: content
+        });
+    } finally {
+        await res.redirect('/admin?msg=Reminder successfully uploaded');
+    }
 })
 
-app.listen(port, console.log(`Server: Running
-PORT: ${port}
-Success: True`))
+app.get('/api/get-reminders', async(req, res) => {
+  try {
+    const collection = await client.db('class-management').collection('reminders');
+    const remindersArray = await collection.find().toArray();
+    return await res.send({ remindersArray: remindersArray });
+  } catch {
+    console.log('There was an error');
+  }
+})
+
+
+
+
+
+app.listen(PORT, console.log(`Server is running on port ${PORT}...`))
